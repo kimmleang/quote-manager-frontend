@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import quoteReducer from "./quoteSlice";
+import quoteReducer from "./features/quoteSlice";
+import favoritesReducer from "./features/favoritesSlice";
+import errorReducer from "./features/errorSlice";
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
-    quotes: quoteReducer,
+    quote: quoteReducer,
+    favorites: favoritesReducer,
+    error: errorReducer,
   },
 });
 

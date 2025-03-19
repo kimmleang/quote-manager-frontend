@@ -10,7 +10,6 @@ const GenerateQuote = () => {
   const [favorite, setFavorite] = useState(null);
 
   const handleGenerate = () => {
-    // Simulated API response (replace with real API call)
     setQuote({
       author: "John Doe",
       content: "This is a sample quote. The real quote will be fetched from an API.",
@@ -49,7 +48,6 @@ const GenerateQuote = () => {
         <p className="mt-4 text-gray-600 font-medium">- {quote.author}</p>
       </div>
 
-      {/* Favorite Display */}
       {favorite && (
         <div className="mt-6 p-4 w-full max-w-md bg-blue-100 shadow-md rounded-lg text-center">
           <h2 className="text-xl font-semibold text-blue-600">Favorite Quote</h2>

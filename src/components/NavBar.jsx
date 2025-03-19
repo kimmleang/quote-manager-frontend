@@ -1,36 +1,86 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
-  const navigate = useNavigate();
-
   return (
-    <nav className="bg-white shadow-md py-4 px-6 md:px-12 flex justify-between items-center">
-      {/* Logo */}
-      <div className="text-2xl font-bold text-blue-600 cursor-pointer" onClick={() => navigate("/")}>
+    <nav className="bg-white shadow-md border-b border-gray-300 py-4 px-6 md:px-12 top-0 w-full z-50 flex items-center">
+      <div className="text-2xl font-bold text-blue-600 cursor-pointer flex-1">
         BrandLogo
       </div>
-
-      {/* Navigation Links */}
-      <ul className="hidden md:flex space-x-6 text-gray-700 font-medium">
-        <li className="hover:text-blue-600 cursor-pointer" onClick={() => navigate("/")}>Home</li>
-        <li className="hover:text-blue-600 cursor-pointer"><a href="#">Service</a></li>
-        <li className="hover:text-blue-600 cursor-pointer"><a href="#">About</a></li>
-        <li className="hover:text-blue-600 cursor-pointer"><a href="#">Contact</a></li>
+      <ul className="hidden md:flex gap-6 text-gray-700 font-medium absolute left-1/2 transform -translate-x-1/2">
+        <li>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive
+                ? "text-blue-600 font-bold border border-blue-600 px-3 py-2 rounded-lg"
+                : "hover:text-blue-600"
+            }
+          >
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/service"
+            className={({ isActive }) =>
+              isActive
+                ? "text-blue-600 font-bold border border-blue-600 px-3 py-2 rounded-lg"
+                : "hover:text-blue-600"
+            }
+          >
+            Service
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              isActive
+                ? "text-blue-600 font-bold border border-blue-600 px-3 py-2 rounded-lg"
+                : "hover:text-blue-600"
+            }
+          >
+            About
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              isActive
+                ? "text-blue-600 font-bold border border-blue-600 px-3 py-2 rounded-lg"
+                : "hover:text-blue-600"
+            }
+          >
+            Contact
+          </NavLink>
+        </li>
       </ul>
 
-      {/* Buttons */}
-      <div className="hidden md:flex space-x-4">
-        <button className="text-blue-600 font-medium border border-blue-600 px-4 py-2 rounded-lg hover:bg-blue-100" onClick={() => navigate("/login")}>
+      {/* Buttons (Pushes to the right) */}
+      <div className="hidden md:flex gap-4 flex-1 justify-end">
+        <NavLink
+          to="/login"
+          className={({ isActive }) =>
+            isActive
+              ? "text-blue-600 font-bold border border-blue-600 px-4 py-2 rounded-lg"
+              : "text-blue-600 font-medium border border-blue-600 px-4 py-2 rounded-lg hover:bg-blue-100"
+          }
+        >
           Login
-        </button>
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700" onClick={() => navigate("/register")}>
+        </NavLink>
+        <NavLink
+          to="/register"
+          className={({ isActive }) =>
+            isActive
+              ? "bg-blue-600 text-white font-bold px-4 py-2 rounded-lg"
+              : "bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+          }
+        >
           Sign Up
-        </button>
+        </NavLink>
       </div>
-
-      {/* Mobile Menu */}
-      <div className="md:hidden text-gray-700 text-2xl cursor-pointer">☰</div>
     </nav>
   );
 };

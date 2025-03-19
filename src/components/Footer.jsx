@@ -34,7 +34,7 @@ const Footer = () => {
             </div>
 
             <div className="text-center text-gray-200 text-sm mt-6">
-                © {new Date().getFullYear()} BrandLogo. All rights reserved.
+                © {new Date().getFullYear()} Kimleang. All rights reserved.
             </div>
         </footer>
       
