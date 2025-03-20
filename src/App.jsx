@@ -8,6 +8,7 @@ import Register from "./components/Register";
 import FavoriteQuote from "./pages/FavoriteQuote";
 import Account from "./pages/Account";
 import PrivateRoute from "./components/PrivateRoute";
+import About from "./pages/About";
 
 export default function App() {
   return (
@@ -16,18 +17,17 @@ export default function App() {
       <div className="min-h-screen">
         <Routes>
           <Route path="/" element={<Homepage />} />
+          <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route
-            path="/favorite"
+          <Route path="/favorite"
             element={
               <PrivateRoute>
                 <FavoriteQuote />
               </PrivateRoute>
             }
           />
-          <Route
-            path="/account"
+          <Route path="/account"
             element={
               <PrivateRoute>
                 <Account />

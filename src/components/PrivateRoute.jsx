@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode"; // Fix: Use named import
+import { jwtDecode } from "jwt-decode"; 
 import { logout } from "../redux/authSlice";
 
 const PrivateRoute = ({ children }) => {

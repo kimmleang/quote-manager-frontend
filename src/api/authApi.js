@@ -29,3 +29,15 @@ export const loginUserApi = async (userData) => {
     }
   }
 };
+
+export const fetchUserProfileApi = async (token) => {
+    try {
+      const response = await axios.get(`${API_URL}/profile`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log("Response from fetchUserProfileApi:", response.data.original.user);
+      return response.data.original.user;
+    } catch (error) {
+      throw new Error("Failed to fetch user profile");
+    }
+  };

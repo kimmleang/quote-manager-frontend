@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { registerUserApi, loginUserApi } from "../api/authApi";
+import { registerUserApi, loginUserApi, fetchUserProfileApi } from "../api/authApi";
 
 // Async Thunks
 export const registerUser = createAsyncThunk(
@@ -26,6 +26,19 @@ export const loginUser = createAsyncThunk(
       return { token: data.authorization.token, user: data.user };
     } catch (error) {
       return rejectWithValue(error.message || "Login failed");
+    }
+  }
+);
+
+export const fetchUserProfile = createAsyncThunk(
+  "auth/fetchUserProfile",
+  async (_, { getState, rejectWithValue }) => {
+    const { auth } = getState();
+    try {
+      const user = await fetchUserProfileApi(auth.token);
+      return user;
+    } catch (error) {
+      return rejectWithValue(error.message || "Failed to fetch user profile");
     }
   }
 );
@@ -71,6 +84,18 @@ const authSlice = createSlice({
         state.token = action.payload.token;
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchUserProfile.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchUserProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(fetchUserProfile.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
