@@ -1,42 +1,58 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { fetchRandomQuoteApi, saveQuoteApi } from "../api/quoteApi";
 
-// Placeholder for future API call with Axios
-export const fetchQuote = createAsyncThunk("quote/fetchQuote", async () => {
-  // API call will be added here later
-  return { id: 1, content: "This is a sample quote", author: "Author Name" };
+// Async thunk to fetch a random quote
+export const fetchRandomQuote = createAsyncThunk("quote/fetchRandom", async (_, { rejectWithValue }) => {
+  try {
+    return await fetchRandomQuoteApi();
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
+});
+
+// Async thunk to save a quote
+export const saveQuote = createAsyncThunk("quote/save", async (quote, { getState, rejectWithValue }) => {
+  const { auth } = getState();
+  try {
+    return await saveQuoteApi(quote, auth.token);
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
 });
 
 const quoteSlice = createSlice({
   name: "quote",
   initialState: {
-    currentQuote: { id: null, content: "", author: "" },
+    quote: null,
     loading: false,
     error: null,
+    saveError: null,
   },
-  reducers: {
-    setQuote: (state, action) => {
-      state.currentQuote = action.payload;
-    },
-    clearQuote: (state) => {
-      state.currentQuote = { id: null, content: "", author: "" };
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchQuote.pending, (state) => {
+      .addCase(fetchRandomQuote.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchQuote.fulfilled, (state, action) => {
+      .addCase(fetchRandomQuote.fulfilled, (state, action) => {
         state.loading = false;
-        state.currentQuote = action.payload;
+        state.quote = action.payload;
       })
-      .addCase(fetchQuote.rejected, (state, action) => {
+      .addCase(fetchRandomQuote.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload;
+      })
+      .addCase(saveQuote.pending, (state) => {
+        state.saveError = null;
+      })
+      .addCase(saveQuote.fulfilled, (state) => {
+        // Handle successful save if needed
+      })
+      .addCase(saveQuote.rejected, (state, action) => {
+        state.saveError = action.payload;
       });
   },
 });
 
-export const { setQuote, clearQuote } = quoteSlice.actions;
 export default quoteSlice.reducer;
