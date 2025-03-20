@@ -6,12 +6,10 @@ const Footer = () => {
     <div>
         <footer className="bg-blue-600 text-white py-8 mt-12">
             <div className="max-w-6xl mx-auto px-6 md:flex md:justify-between">
-                {/* Left Section */}
                 <div className="mb-6 md:mb-0">
                 <h2 className="text-xl font-semibold">BrandLogo</h2>
                 <p className="text-sm text-gray-200">Your tagline or mission statement here.</p>
                 </div>
-
                 {/* Links */}
                 <div className="grid grid-cols-2 gap-6 text-sm">
                 <div>
@@ -19,8 +17,6 @@ const Footer = () => {
                     <ul className="mt-2 space-y-2">
                     <li className="hover:text-gray-300 cursor-pointer">Home</li>
                     <li className="hover:text-gray-300 cursor-pointer">About</li>
-                    <li className="hover:text-gray-300 cursor-pointer">Services</li>
-                    <li className="hover:text-gray-300 cursor-pointer">Contact</li>
                     </ul>
                 </div>
                 </div>

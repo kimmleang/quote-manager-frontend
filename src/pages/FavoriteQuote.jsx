@@ -1,155 +1,129 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { FaTrash, FaEdit, FaSave, FaSort } from "react-icons/fa";
+import { fetchQuotes, updateQuote, deleteQuote } from "../redux/quoteSlice";
+import LoadingModal from "../components/LoadingModal";
 
 const FavoriteQuote = () => {
-  const [favorites, setFavorites] = useState([
-    { id: 1, text: "The best way to predict the future is to create it.", author: "Peter Drucker" },
-    { id: 2, text: "Do what you can, with what you have, where you are.", author: "Theodore Roosevelt" },
-    { id: 3, text: "Your time is limited, so don’t waste it living someone else’s life.", author: "Steve Jobs" },
-    { id: 4, text: "Success is not final, failure is not fatal: It is the courage to continue that counts.", author: "Winston Churchill" },
-    { id: 5, text: "It always seems impossible until it’s done.", author: "Nelson Mandela" },
-    { id: 6, text: "Happiness depends upon ourselves.", author: "Aristotle" },
-    { id: 7, text: "Turn your wounds into wisdom.", author: "Oprah Winfrey" },
-    { id: 8, text: "It is never too late to be what you might have been.", author: "George Eliot" },
-    { id: 9, text: "Do what you feel in your heart to be right – for you’ll be criticized anyway.", author: "Eleanor Roosevelt" },
-    { id: 10, text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
-    { id: 11, text: "Act as if what you do makes a difference. It does.", author: "William James" },
-  ]);
+  const dispatch = useDispatch();
+  const { quotes, loading } = useSelector((state) => state.quote);
 
   const [editId, setEditId] = useState(null);
   const [editText, setEditText] = useState("");
   const [editAuthor, setEditAuthor] = useState("");
   const [search, setSearch] = useState("");
   const [sortAscending, setSortAscending] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  // Enable edit mode
+  useEffect(() => {
+    dispatch(fetchQuotes());
+    window.scrollTo(0, 0);
+  }, [dispatch]);
+
   const startEditing = (quote) => {
     setEditId(quote.id);
-    setEditText(quote.text);
+    setEditText(quote.content);
     setEditAuthor(quote.author);
   };
 
-  // Save edited quote
-  const saveEdit = (id) => {
-    setFavorites(favorites.map((quote) =>
-      quote.id === id ? { ...quote, text: editText, author: editAuthor } : quote
-    ));
-    setEditId(null); // Exit edit mode
+  const saveEdit = async (id) => {
+    setIsProcessing(true);
+    const updatedQuote = { content: editText, author: editAuthor };
+    await dispatch(updateQuote({ id, updatedQuote }));
+    setEditId(null);
+    setIsProcessing(false);
   };
 
-  // Remove quote from favorites
-  const removeFavorite = (id) => {
-    setFavorites(favorites.filter((quote) => quote.id !== id));
+  const removeFavorite = async (id) => {
+    setIsProcessing(true);
+    await dispatch(deleteQuote(id));
+    setIsProcessing(false);
   };
 
-  // Toggle sort order
   const toggleSort = () => {
     setSortAscending(!sortAscending);
   };
 
-  // Filtered & Sorted Quotes
-  const filteredQuotes = favorites
+  const filteredQuotes = quotes
     .filter((quote) =>
-      quote.text.toLowerCase().includes(search.toLowerCase()) ||
+      quote.content.toLowerCase().includes(search.toLowerCase()) ||
       quote.author.toLowerCase().includes(search.toLowerCase())
     )
     .sort((a, b) => (sortAscending ? a.id - b.id : b.id - a.id));
 
-  // Pagination Logic
-  const totalPages = Math.ceil(filteredQuotes.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentQuotes = filteredQuotes.slice(startIndex, startIndex + itemsPerPage);
-
   return (
-    <div className="max-w-3xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+    <div className="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-bold text-blue-600 mb-4 text-center">Favorite Quotes</h2>
 
-      {/* Search Box */}
-      <input
-        type="text"
-        placeholder="Search quotes or author..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="w-full mb-4 p-2 border rounded"
-      />
+      {/* Search & Sort */}
+      <div className="flex justify-between items-center mb-4">
+        <input
+          type="text"
+          placeholder="Search quotes or author..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-4/5 p-2 border rounded"
+        />
+        <button
+          onClick={toggleSort}
+          className="flex items-center px-2 py-2 border rounded text-blue-600 hover:bg-blue-100"
+        >
+          Sort  {sortAscending ? "▲" : "▼"}
 
-      {/* Sort Button */}
-      <button
-        onClick={toggleSort}
-        className="mb-4 flex items-center px-4 py-2 border rounded text-blue-600 hover:bg-blue-100"
-      >
-        Sort by ID {sortAscending ? "▲" : "▼"}
-        <FaSort className="ml-2" />
-      </button>
+        </button>
+      </div>
 
-      {filteredQuotes.length === 0 ? (
+      {isProcessing && <LoadingModal />}
+
+      {loading ? (
+        <p className="text-gray-500 text-center">Loading...</p>
+      ) : filteredQuotes.length === 0 ? (
         <p className="text-gray-500 text-center">No favorite quotes found.</p>
       ) : (
         <ul className="space-y-4">
-          {currentQuotes.map((quote) => (
-            <li key={quote.id} className="bg-gray-100 p-4 rounded-lg flex justify-between items-center">
-              {editId === quote.id ? (
-                <div className="w-full">
-                  <input
-                    type="text"
-                    className="w-full mb-1 p-2 border rounded"
-                    value={editText}
-                    onChange={(e) => setEditText(e.target.value)}
-                  />
-                  <input
-                    type="text"
-                    className="w-full p-2 border rounded"
-                    value={editAuthor}
-                    onChange={(e) => setEditAuthor(e.target.value)}
-                  />
-                </div>
-              ) : (
-                <div>
-                  <p className="text-lg font-medium">"{quote.text}"</p>
-                  <p className="text-sm text-gray-600">- {quote.author}</p>
-                </div>
-              )}
-
-              <div className="flex space-x-3">
+          {filteredQuotes.map((quote) => (
+            <li key={quote.id} className="flex items-center justify-between bg-gray-100 p-4 rounded-lg shadow">
+              <div className="flex-1">
                 {editId === quote.id ? (
-                  <button onClick={() => saveEdit(quote.id)} className="text-green-600 hover:text-green-800">
-                    <FaSave size={18} />
+                  <>
+                    <input
+                      type="text"
+                      className="w-full mb-1 p-2 border rounded"
+                      value={editText}
+                      onChange={(e) => setEditText(e.target.value)}
+                    />
+                    <input
+                      type="text"
+                      className="w-full p-2 border rounded"
+                      value={editAuthor}
+                      onChange={(e) => setEditAuthor(e.target.value)}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <p className="text-lg font-medium">"{quote.content}"</p>
+                    <p className="text-sm text-gray-600">- {quote.author}</p>
+                  </>
+                )}
+              </div>
+
+              <div className="flex space-x-2 ml-3">
+                {editId === quote.id ? (
+                  <button onClick={() => saveEdit(quote.id)} className="bg-green-500 text-white px-3 py-3 rounded-full hover:bg-green-700">
+                    <FaSave />
                   </button>
                 ) : (
-                  <button onClick={() => startEditing(quote)} className="text-blue-600 hover:text-blue-800">
-                    <FaEdit size={18} />
+                  <button onClick={() => startEditing(quote)} className="bg-blue-500 text-white px-3 py-3 rounded-full hover:bg-blue-700">
+                    <FaEdit />
                   </button>
                 )}
-                <button onClick={() => removeFavorite(quote.id)} className="text-red-600 hover:text-red-800">
-                  <FaTrash size={18} />
+                <button onClick={() => removeFavorite(quote.id)} className="bg-red-500 text-white px-3 py-3 rounded-full hover:bg-red-700">
+                  <FaTrash />
                 </button>
               </div>
             </li>
           ))}
         </ul>
-      )}
-
-      {/* Pagination Controls */}
-      {totalPages > 1 && (
-        <div className="mt-4 flex justify-center space-x-2">
-          <button
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-            className="px-3 py-1 border rounded text-blue-600 hover:bg-blue-100 disabled:opacity-50"
-          >
-            Previous
-          </button>
-          <span className="px-4 py-1 border rounded bg-gray-200">{currentPage} / {totalPages}</span>
-          <button
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
-            className="px-3 py-1 border rounded text-blue-600 hover:bg-blue-100 disabled:opacity-50"
-          >
-            Next
-          </button>
-        </div>
       )}
     </div>
   );
