@@ -1,12 +1,57 @@
-# React + Vite
+# Quote Manager Frontend - React.js + Vite + Tailwind CSS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+## 🔗Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Check out the live version here: [My Portfolio](https://www.kimleang.site)
 
-## Expanding the ESLint configuration
+## 📂 Features
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- ⚡ **Vite-Powered**: Super fast development and optimized builds
+- 🎨 **Tailwind CSS**: Beautiful and responsive design
+- 🌙 **Dark Mode Support**
+- 🔧 **Easily Customizable**: Change content, colors, and layout quickly
+- 📱 **Fully Responsive**: Works on all devices
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone this repository:
+
+```bash
+git clone https://github.com/kimmleang/react-portfolio-template.git
+cd react-portfolio-template
+```
+
+### 2️⃣ Install dependencies:
+
+```bash
+npm install  # or yarn install
+```
+
+### 3️⃣ Run the development server:
+
+```bash
+npm run dev  # or yarn dev
+```
+
+### 4️⃣ Build for production:
+
+```bash
+npm run build  # or yarn build
+```
+
+## 🌍 Deployment
+
+This project is already deployed on **Vercel**, but you can deploy it to other platforms like Netlify, GitHub Pages, or your own hosting.
+
+### Deploy on Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Go to [Vercel](https://vercel.com/) and import your repository
+3. Set up the build command: `npm run build`
+4. Deploy and connect your custom domain!
+
+## 📜 License
+
+This project is **open-source** and available under the [MIT License](LICENSE).
+
