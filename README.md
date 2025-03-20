@@ -3,7 +3,7 @@
 
 ## 🔗Demo
 
-Check out the live version here: [My Portfolio](https://www.kimleang.site)
+Check out the live version here: [Website]
 
 ## 📂 Features
 
@@ -18,8 +18,8 @@ Check out the live version here: [My Portfolio](https://www.kimleang.site)
 ### 1️⃣ Clone this repository:
 
 ```bash
-git clone https://github.com/kimmleang/react-portfolio-template.git
-cd react-portfolio-template
+git clone https://github.com/kimmleang/quote-manager-frontend
+cd quote-manager-frontend
 ```
 
 ### 2️⃣ Install dependencies:
