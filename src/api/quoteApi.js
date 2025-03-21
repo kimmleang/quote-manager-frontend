@@ -1,9 +1,8 @@
 import axios from "axios";
 
-// const API_URL = "http://127.0.0.1:8000/api";
-const API_URL = "https://quotemanager.kimleang.site/api";
+const API_URL = import.meta.env.VITE_API_URL;
 
-// Fetch a random quote
+// random quote
 export const fetchRandomQuoteApi = async () => {
   try {
     const response = await axios.get(`${API_URL}/quotes/random`);

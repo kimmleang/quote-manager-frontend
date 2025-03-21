@@ -1,9 +1,8 @@
 import axios from "axios";
 
-// const API_URL = "http://localhost:8000/api"; 
-const API_URL = "https://quotemanager.kimleang.site/api";
+const API_URL = import.meta.env.VITE_API_URL;
 
-// Register user
+// Register
 export const registerUserApi = async (userData) => {
   try {
     const response = await axios.post(`${API_URL}/register`, userData);
@@ -17,7 +16,7 @@ export const registerUserApi = async (userData) => {
   }
 };
 
-// Login user
+// Login 
 export const loginUserApi = async (userData) => {
   try {
     const response = await axios.post(`${API_URL}/login`, userData);
