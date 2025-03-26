@@ -1,8 +1,8 @@
 # 📜 Quote Manager Frontend
 A powerful quote management system built with React.js, Vite, Redux Toolkit, and Tailwind CSS.
+
 ## 🔗Demo
 Check out the live version here: [Quote Manager](https://quote-manager-frontend-544n.vercel.app)
-
 
 ## 📂 Features
 
