@@ -7,15 +7,15 @@ Check out the live version here: [Quote Manager](https://quote-manager-frontend-
 ## 📂 Features
 
 ### 🔥 Core Functionalities
-- 📖 Generate Random Quotes – Instantly fetch and display inspiring quotes.
-- 💾 Save Favorite Quotes – Store your favorite quotes for easy access.
-- ✏️ Edit & Update Quotes – Modify existing quotes as needed.
-- ❌ Delete Quotes – Remove unwanted quotes from your collection.
-- 🔍 Search & Filter Quotes – Quickly find quotes using keywords or filters.
+- Generate Random Quotes – Instantly fetch and display inspiring quotes.
+- Save Favorite Quotes – Store your favorite quotes for easy access.
+- Edit & Update Quotes – Modify existing quotes as needed.
+- Delete Quotes – Remove unwanted quotes from your collection.
+- Search & Filter Quotes – Quickly find quotes using keywords or filters.
 ### 🛠 Authentication & User Management
-- 🔐 User Registration & Login – Secure user authentication using Redux Toolkit and REST API.
-- 🛡️ Protected Routes – Restrict access to certain pages for authenticated users.
-- 🚪 Logout Functionality – Securely log out users and clear session data.
+- User Registration & Login – Secure user authentication using Redux Toolkit and REST API.
+- Protected Routes – Restrict access to certain pages for authenticated users.
+- Logout Functionality – Securely log out users and clear session data.
 ### 🎨 UI & UX Enhancements
 - ⚡ Fast Performance – Powered by Vite for rapid development and optimized performance.
 - 🌈 Beautiful Design – Styled with Tailwind CSS for a modern and responsive UI.
