@@ -12,7 +12,7 @@ Check out the live version here: [Quote Manager](https://quote-manager-frontend-
 - Edit & Update Quotes – Modify existing quotes as needed.
 - Delete Quotes – Remove unwanted quotes from your collection.
 - Search & Filter Quotes – Quickly find quotes using keywords or filters.
-### 🛠 Authentication & User Management
+### Authentication & User Management
 - User Registration & Login – Secure user authentication using Redux Toolkit and REST API.
 - Protected Routes – Restrict access to certain pages for authenticated users.
 - Logout Functionality – Securely log out users and clear session data.
