@@ -4,7 +4,7 @@ A powerful quote management system built with React.js, Vite, Redux Toolkit, and
 ## 🔗Demo
 Check out the live version here: [Quote Manager](https://quote-manager-frontend-544n.vercel.app)
 
-## eatures
+## Features
 
 ### Core Functionalities
 - Generate Random Quotes – Instantly fetch and display inspiring quotes.
@@ -26,7 +26,7 @@ Check out the live version here: [Quote Manager](https://quote-manager-frontend-
 - Redux Toolkit for State Management – Efficient state handling with Redux.
 - Loading & Error Handling – Smooth UI with loading spinners and error messages.
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1️⃣ Clone this repository:
 
